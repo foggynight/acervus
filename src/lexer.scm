@@ -1,5 +1,6 @@
 (declare (unit lexer)
          (uses global)
+         (uses string)
          (uses token))
 
 (import (chicken io)
@@ -19,17 +20,14 @@
                   (loop (+ i 1)))))))
 
 (define (lex-word word operand)
-  (make-token word (cond ((char=? (string-ref word 0) (directive-char))
-                          'directive)
-                         ((char=? (string-ref word (- (string-length word) 1))
-                                  (label-char))
-                          'label)
-                         (else (if operand
-                                   (if (char=? (string-ref word 0)
-                                               (location-char))
-                                       'location
-                                       'immediate)
-                                   'operator)))))
+  (define type (cond ((char=? (first-char word) (directive-char)) 'directive)
+                     ((char=? (last-char word) (label-char)) 'label)
+                     (else (if operand
+                               (if (char=? (first-char word) (location-char))
+                                   'location
+                                   'immediate)
+                               'operator))))
+  (make-token type word))
 
 (define (lex-line line)
   (define operand #f)

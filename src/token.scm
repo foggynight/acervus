@@ -2,9 +2,9 @@
 
 (define make-token cons)
 
-(define token-string car)
+(define token-type car)
 
-(define token-type cdr)
+(define token-string cdr)
 
 (define (token-directive? token)
   (eq? (token-type token) 'directive))
