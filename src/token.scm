@@ -4,7 +4,7 @@
 
 (define token-type car)
 
-(define token-string cdr)
+(define token-data cdr)
 
 (define (token-directive? token)
   (eq? (token-type token) 'directive))
@@ -15,12 +15,17 @@
 (define (token-operator? token)
   (eq? (token-type token) 'operator))
 
-(define (token-location? token)
-  (eq? (token-type token) 'location))
-
 (define (token-immediate? token)
   (eq? (token-type token) 'immediate))
 
+(define (token-location? token)
+  (eq? (token-type token) 'location))
+
+(define (token-character? token)
+  (eq? (token-type token) 'character))
+
+(define (token-string? token)
+  (eq? (token-type token) 'string))
+
 (define (token-operand? token)
-  (or (token-location? token)
-      (token-immediate? token)))
+  (memq (token-type token) '(immediate location character string)))
