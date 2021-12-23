@@ -12,8 +12,8 @@
 (define (token-label? token)
   (eq? (token-type token) 'label))
 
-(define (token-operator? token)
-  (eq? (token-type token) 'operator))
+(define (token-instruction? token)
+  (eq? (token-type token) 'instruction))
 
 (define (token-location? token)
   (eq? (token-type token) 'location))

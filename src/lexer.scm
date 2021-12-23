@@ -14,7 +14,7 @@
                     ((and (char=? (first-char word) (location-char))
                           (not (= (string-length word) 1)))
                      'location)
-                    ((string-alphabetic? word) 'operator)
+                    ((string-alphabetic? word) 'instruction)
                     ((string-numeric? word) 'number)
                     (else (error "acervus: invalid word")))
               word))
