@@ -1,5 +1,29 @@
 (declare (unit string))
 
+(: string-alphabetic? (string --> boolean))
+(define (string-alphabetic? str)
+  (define len (string-length str))
+  (if (zero? len)
+      #f
+      (let loop ((i 0))
+        (if (= i len)
+            #t
+            (if (not (char-alphabetic? (string-ref str i)))
+                #f
+                (loop (+ i 1)))))))
+
+(: string-numeric? (string --> boolean))
+(define (string-numeric? str)
+  (define len (string-length str))
+  (if (zero? len)
+      #f
+      (let loop ((i 0))
+        (if (= i len)
+            #t
+            (if (not (char-numeric? (string-ref str i)))
+                #f
+                (loop (+ i 1)))))))
+
 (: first-char (string --> (or char false)))
 (define (first-char str)
   (if (zero? (string-length str))

@@ -15,11 +15,11 @@
 (define (token-operator? token)
   (eq? (token-type token) 'operator))
 
-(define (token-immediate? token)
-  (eq? (token-type token) 'immediate))
-
 (define (token-location? token)
   (eq? (token-type token) 'location))
+
+(define (token-number? token)
+  (eq? (token-type token) 'number))
 
 (define (token-character? token)
   (eq? (token-type token) 'character))
@@ -28,4 +28,4 @@
   (eq? (token-type token) 'string))
 
 (define (token-operand? token)
-  (memq (token-type token) '(immediate location character string)))
+  (memq (token-type token) '(location number character string)))
