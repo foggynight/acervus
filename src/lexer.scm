@@ -4,8 +4,7 @@
          (uses string)
          (uses token))
 
-(import (chicken io)
-        (chicken string))
+(import (chicken io))
 
 (define (lex-word word)
   (make-token (cond ((char=? (first-char word) (directive-char)) 'directive)
