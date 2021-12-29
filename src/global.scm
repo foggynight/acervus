@@ -8,3 +8,26 @@
 
 (define char-delim (make-parameter #\'))
 (define string-delim (make-parameter #\"))
+
+(define directives (make-parameter '(.code .data)))
+
+(define instructions
+  (make-parameter
+   '((push . 1)
+     (pop . 0)
+     (swap . 0)
+     (rot . 0)
+     (add . 0)
+     (sub . 0)
+     (mul . 0)
+     (div . 0)
+     (comp . 0)
+     (jump . 1)
+     (jumpz . 1)
+     (jumpl . 1)
+     (jumpg . 1)
+     (read . 0)
+     (write . 0)
+     (exit . 0))))
+
+(define (operand-count inst) (cdr (assq inst (instructions))))

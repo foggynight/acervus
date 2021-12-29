@@ -16,7 +16,7 @@
                      'location)
                     ((string-alphabetic? word) 'instruction)
                     ((string-numeric? word) 'number)
-                    (else (error "acervus: invalid word")))
+                    (else (error "acervus: lexer error: invalid word")))
               word))
 
 (define (lex-line line)
@@ -37,7 +37,7 @@
                                            word)))
                      (set! i (+ i (string-length word)))
                      (set! tokens (cons tok tokens)))
-                   (error "acervus: missing delimiter"))))
+                   (error "acervus: lexer error: missing delimiter"))))
             (else (let* ((word (next-word line i))
                          (tok (lex-word word)))
                     (set! i (+ i (string-length word)))

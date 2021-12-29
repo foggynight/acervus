@@ -29,3 +29,25 @@
 
 (define (token-operand? token)
   (memq (token-type token) '(location number character string)))
+
+(define (token/data->symbol token)
+  (string->symbol (token-data token)))
+
+(define token/instruction->symbol token/data->symbol)
+
+(define (token/character->char token)
+  (define tok-str (token-data token))
+  (define char-str (substring tok-str 1 (- (string-length tok-str) 1)))
+  (cond ((string=? char-str "\n") #\newline)
+        ((string=? char-str "\t") #\tab)
+        (else (string-ref char-str 0))))
+
+(define (token/immediate->value token)
+  (cond ((token-number? token) (string->number (token-data token)))
+        ((token-character? token) (token/character->char token))
+        ((token-string? token) (token-data token))))
+
+(define (token/operand->value token)
+  (if (token-location? token)
+      (token/data->symbol token)
+      (token/immediate->value token)))
