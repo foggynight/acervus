@@ -2,12 +2,21 @@
 
 (define make-stack list)
 
-(define (stack-push stack elem)
-  (cons elem stack))
+(define stack-length length)
+
+(define stack-top car)
+
+(define (stack-push stack . elems)
+  (let loop ((stk stack)
+             (els elems))
+    (if (null? els)
+        stk
+        (loop (cons (car els) stk) (cdr els)))))
 
 (define stack-pop cdr)
 
-(define stack-top car)
+(define (stack-drop stack count)
+  (list-tail stack count))
 
 (define stack-ref list-ref)
 

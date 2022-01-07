@@ -8,7 +8,12 @@
   (exit 1))
 
 (define (lexer-error msg)
-  (%error (format #f "acervus: lexer error: ~A" msg)))
+  (%error (format #f "acervus: syntax error: ~A" msg)))
 
 (define (parser-error msg)
-  (%error (format #f "acervus: parser error: ~A" msg)))
+  (%error (format #f "acervus: parse error: ~A" msg)))
+
+(define (engine-error type msg)
+  (case type
+    ((stack) (%error (format #f "acervus: stack error: ~A" msg)))
+    ((type) (%error (format #f "acervus: type error: ~A" msg)))))

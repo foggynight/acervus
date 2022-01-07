@@ -5,8 +5,8 @@
 
 (import (srfi 69))
 
-(define %program '())
-(define %labels '())
+(define program '())
+(define labels '())
 (define address 0)
 
 (define line-number 0)
@@ -15,11 +15,11 @@
 (define (valid-instruction? inst) (assq inst (instructions)))
 
 (define (program-cons! elem)
-  (set! %program (cons elem %program))
+  (set! program (cons elem program))
   (set! address (+ address 1)))
 
 (define (labels-cons! lab)
-  (set! %labels (cons (cons lab address) %labels)))
+  (set! labels (cons (cons lab address) labels)))
 
 (define (parse-directive! tokens)
   (define dir (token/data->symbol (car tokens)))
@@ -29,9 +29,12 @@
 
 (define (parse-label! tokens)
   (define lab (token/data->symbol (car tokens)))
-  (when (assq lab %labels)
+  (when (assq lab labels)
     (parser-error "duplicate label"))
-  (labels-cons! lab)
+  (let* ((lab-str (symbol->string lab))
+         (lab-name (substring lab-str 0 (- (string-length lab-str) 1)))
+         (loc-syn (string->symbol (string-append ":" lab-name))))
+    (labels-cons! loc-syn))
   (unless (null? (cdr tokens))
     (parse-expression! (cdr tokens))))
 
@@ -59,5 +62,5 @@
 
 (define (parse-tokens tokens)
   (for-each parse-line! tokens)
-  (cons (list->vector (reverse %program))
-        (alist->hash-table (reverse %labels))))
+  (cons (list->vector (reverse program))
+        (alist->hash-table (reverse labels))))
