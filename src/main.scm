@@ -2,8 +2,7 @@
          (uses lexer)
          (uses parser))
 
-(import (chicken process-context)
-        (srfi 69))
+(import (chicken process-context))
 
 (define (main path)
   (let ((pi-la (parse-tokens (lex-file path))))
