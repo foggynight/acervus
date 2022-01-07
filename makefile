@@ -3,3 +3,6 @@ all:
 
 debug:
 	csc -o acervus -d3 src/*.scm || rm src/*.c
+
+eggs:
+	chicken-install -s srfi-69
