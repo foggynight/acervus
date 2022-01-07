@@ -1,0 +1,7 @@
+    read
+    dup
+    newline
+    display
+    newline
+    write
+    newline

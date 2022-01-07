@@ -1,0 +1,15 @@
+    push 1
+    push 1
+    comp
+    jumpe :true
+    jump :false
+true:
+    push 'T'
+    display
+    jump :end
+false:
+    push 'F'
+    display
+end:
+    newline
+    exit

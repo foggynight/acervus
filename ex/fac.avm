@@ -1,0 +1,22 @@
+;; fac.avm - Calculate the factorial of N.
+
+    push 1 ; accumulator
+    push 1000 ; N
+
+loop:
+    dup
+    push 0
+    comp
+    jumpe :end
+    dup
+    rot
+    mul
+    swap
+    push 1
+    sub
+    jump :loop
+
+end:
+    swap
+    write
+    newline
