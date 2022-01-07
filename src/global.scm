@@ -28,6 +28,7 @@
      (jumpl . 1)
      (jumpg . 1)
      (read . 0)
+     (display . 0)
      (write . 0)
      (newline . 0)
      (exit . 0))))

@@ -82,10 +82,11 @@
     (set! stack (stack-push stack (read-char)))
     (set! pc (+ pc 1)))
 
-  (define (inst-write!)
+  (define (inst-write! pretty)
     (when (< (stack-length stack) 1)
       (engine-error 'stack "too few elements in stack"))
-    (display (stack-top stack))
+    (apply (eval (if pretty 'display 'write))
+           (list (stack-top stack)))
     (set! stack (stack-pop stack))
     (set! pc (+ pc 1)))
 
@@ -112,6 +113,7 @@
       ((jumpl) (inst-conditional-jump! -1))
       ((jumpg) (inst-conditional-jump! 1))
       ((read) (inst-read!))
-      ((write) (inst-write!))
+      ((display) (inst-write! #t))
+      ((write) (inst-write! #f))
       ((newline) (inst-newline!))
       ((exit) (inst-exit)))))
