@@ -19,23 +19,27 @@
 ;; characters and a single period; both cases may have a leading hyphen.
 (: string-numeric? (string --> boolean))
 (define (string-numeric? str)
-  (define (%string-numeric? s)
+  (define (valid-string? s)
     (let loop ((i 0))
       (if (= i (string-length s))
           #t
           (if (char-numeric? (string-ref s i))
               (loop (+ i 1))
               #f))))
-  (define split (string-split str "."))
-  (if (or (< (length split) 1)
-          (> (length split) 2))
+  (if (or (zero? (string-length str))
+          (string=? str "."))
       #f
-      (let* ((str (car split))
-             (lst (cons (if (char=? (string-ref str 0) #\-)
-                            (substring str 1 (string-length str))
-                            str)
-                        (cdr split))))
-        (not (memv #f (map %string-numeric? lst))))))
+      (let ((split (string-split str "." #t)))
+        (if (or (< (length split) 1)
+                (> (length split) 2))
+            #f
+            (let* ((str (car split))
+                   (lst (cons (if (and (not (zero? (string-length str)))
+                                       (char=? (string-ref str 0) #\-))
+                                  (substring str 1 (string-length str))
+                                  str)
+                              (cdr split))))
+              (not (memv #f (map valid-string? lst))))))))
 
 ;; Get the first character of STR, or return false if STR is the empty string.
 (: first-char (string --> (or char false)))
