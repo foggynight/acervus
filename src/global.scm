@@ -32,6 +32,3 @@
      (write . 0)
      (newline . 0)
      (exit . 0))))
-
-(define (operand-count inst)
-  (cdr (assq inst (instructions))))

@@ -14,6 +14,9 @@
 (define (valid-directive? dir) (memq dir (directives)))
 (define (valid-instruction? inst) (assq inst (instructions)))
 
+(define (operand-count inst)
+  (cdr (assq inst (instructions))))
+
 (define (program-cons! elem)
   (set! program (cons elem program))
   (set! address (+ address 1)))
@@ -41,6 +44,8 @@
 (define (parse-expression! tokens)
   (if (token-instruction? (car tokens))
       (let ((inst (token/instruction->symbol (car tokens))))
+        (unless (valid-instruction? inst)
+          (parser-error "invalid instruction"))
         (unless (= (length (cdr tokens)) (operand-count inst))
           (parser-error "invalid number of operands"))
         (program-cons! inst)
