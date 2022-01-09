@@ -1,0 +1,36 @@
+;; fib.avm - Calculate the Nth number in the Fibonacci sequence.
+
+    push 6
+
+    dup
+    push 2
+    comp
+    jumpl :end
+
+    push 0
+    push 1
+
+loop:
+    dup
+    rot
+    add
+
+    rot
+
+    dup
+    push 3
+    comp
+    jumpl :result
+
+    push 1
+    sub
+    swap
+    rot
+    swap
+    jump :loop
+
+result:
+    swap
+
+end:
+    display
