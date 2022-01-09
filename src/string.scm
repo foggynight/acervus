@@ -100,3 +100,13 @@
               (substring str beg (if end end len)))
             #f))
       #f))
+
+;; Get a copy of STR where all the uppercase characters at an index greater than
+;; or equal to START are replaced with their lowercase equivalents.
+(: string-downcase (string fixnum --> string))
+(define (string-downcase str #!optional (start 0))
+  (define s (string-copy str))
+  (define len (string-length str))
+  (do ((i start (+ i 1)))
+      ((>= i len) s)
+    (string-set! s i (char-downcase (string-ref s i)))))
