@@ -1,7 +1,7 @@
-(include "../src/global.scm")
-(include "../src/string.scm")
-(include "../src/token.scm")
-(include "../src/lexer.scm")
+(include "../../src/global.scm")
+(include "../../src/string.scm")
+(include "../../src/token.scm")
+(include "../../src/lexer.scm")
 
 (import test)
 

@@ -1,4 +1,4 @@
-(include "../src/string.scm")
+(include "../../src/string.scm")
 
 (import test)
 
