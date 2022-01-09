@@ -42,10 +42,14 @@
         ((string=? char-str "\t") #\tab)
         (else (string-ref char-str 0))))
 
+(define (token/string->string token)
+  (define tok-str (token-data token))
+  (substring tok-str 1 (- (string-length tok-str) 1)))
+
 (define (token/immediate->value token)
   (cond ((token-number? token) (string->number (token-data token)))
         ((token-character? token) (token/character->char token))
-        ((token-string? token) (token-data token))))
+        ((token-string? token) (token/string->string token))))
 
 (define (token/operand->value token)
   (if (token-location? token)

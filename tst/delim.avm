@@ -1,0 +1,13 @@
+    push 'c'
+    dup
+    display
+    newline
+    write
+    newline
+
+    push "some text"
+    dup
+    display
+    newline
+    write
+    newline
