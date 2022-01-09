@@ -2,14 +2,15 @@
     push 1
     comp
     jumpe :true
-    jump :false
-true:
-    push 'T'
+
+    push "false"
     display
     jump :end
-false:
-    push 'F'
+
+true:
+    push "true"
     display
+
 end:
     newline
     exit

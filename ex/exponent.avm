@@ -1,0 +1,33 @@
+;; exponent.avm - Calculate N to various powers.
+
+    push 2 ; N
+
+;; N^0
+    push 1
+    display
+    push ' '
+    display
+
+;; N^1
+    dup
+    display
+    push ' '
+    display
+
+;; N^2
+    dup
+    dup
+    mul
+    display
+    push ' '
+    display
+
+;; N^3
+    dup
+    dup
+    dup
+    mul
+    mul
+    display
+
+    newline

@@ -1,8 +1,0 @@
-    push -1
-    push 1
-    push -1
-    add
-    add
-    push -1
-    mul
-    display

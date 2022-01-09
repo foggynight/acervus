@@ -1,0 +1,42 @@
+    push 1
+    push -1
+    add
+    push 0
+    comp
+    jumpl :fail
+    jumpg :fail
+
+    push 1
+    push -1
+    sub
+    push 2
+    comp
+    jumpl :fail
+    jumpg :fail
+
+    push 1
+    push -1
+    mul
+    push -1
+    comp
+    jumpl :fail
+    jumpg :fail
+
+    push 1
+    push -1
+    div
+    push -1
+    comp
+    jumpl :fail
+    jumpg :fail
+
+    push "success"
+    display
+    jump :end
+
+fail:
+    push "fail"
+    display
+
+end:
+    newline

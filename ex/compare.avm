@@ -1,0 +1,25 @@
+    push 0
+    push 1
+
+    comp
+    jumpl :lesser
+    jumpg :greater
+    jump :equal
+
+lesser:
+    push "lesser"
+    display
+    jump :end
+
+greater:
+    push "greater"
+    display
+    jump :end
+
+equal:
+    push "equal"
+    display
+    jump :end
+
+end:
+    newline
