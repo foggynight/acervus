@@ -22,6 +22,7 @@
 
 (define (lex-line line)
   (define len (string-length line))
+  (line-number (+ (line-number) 1))
   (do ((i 0 (+ i 1))
        (tokens '()))
       ((>= i len) (reverse tokens))
@@ -50,8 +51,10 @@
       (cons (lex-line line) (lex-loop))))
 
 (define (lex-file path)
+  (line-number 0)
   (with-input-from-file path
     lex-loop))
 
 (define (lex-stdin)
+  (line-number 0)
   (lex-loop))

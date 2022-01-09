@@ -1,4 +1,5 @@
-(declare (unit error))
+(declare (unit error)
+         (uses global))
 
 (import (chicken format))
 
@@ -8,10 +9,12 @@
   (exit 1))
 
 (define (lexer-error msg)
-  (%error (format #f "acervus: syntax error: ~A" msg)))
+  (%error (format #f "acervus: syntax error: (~A:~A) ~A"
+                  (filename) (line-number) msg)))
 
 (define (parser-error msg)
-  (%error (format #f "acervus: parse error: ~A" msg)))
+  (%error (format #f "acervus: parse error: (~A:~A) ~A"
+                  (filename) (line-number) msg)))
 
 (define (engine-error type msg)
   (case type

@@ -9,8 +9,6 @@
 (define labels '())
 (define address 0)
 
-(define line-number 0)
-
 (define (valid-directive? dir) (memq dir (directives)))
 (define (valid-instruction? inst) (assq inst (instructions)))
 
@@ -59,13 +57,14 @@
           (parser-error "tokens trailing immediate"))))
 
 (define (parse-line! tokens)
-  (set! line-number (+ line-number 1))
+  (line-number (+ (line-number) 1))
   (cond ((null? tokens))
         ((token-directive? (car tokens)) (parse-directive! tokens))
         ((token-label? (car tokens)) (parse-label! tokens))
         (else (parse-expression! tokens))))
 
 (define (parse-tokens tokens)
+  (line-number 0)
   (for-each parse-line! tokens)
   (cons (list->vector (reverse program))
         (alist->hash-table (reverse labels))))

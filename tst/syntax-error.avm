@@ -1,0 +1,12 @@
+start:
+    push 1
+    push 2
+    add
+    jump
+
+skip:
+    push 3
+    sub
+
+end:
+    display

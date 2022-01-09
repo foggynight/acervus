@@ -32,3 +32,6 @@
      (write . 0)
      (newline . 0)
      (exit . 0))))
+
+(define filename (make-parameter ""))
+(define line-number (make-parameter 0))
