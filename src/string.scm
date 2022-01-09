@@ -1,5 +1,7 @@
 (declare (unit string))
 
+(import (chicken string))
+
 ;; Determine if STR contains only alphabetic characters.
 (: string-alphabetic? (string --> boolean))
 (define (string-alphabetic? str)
@@ -14,26 +16,26 @@
                 (loop (+ i 1)))))))
 
 ;; Determine if STR contains only numeric characters, or contains only numeric
-;; characters and a single period.
+;; characters and a single period; both cases may have a leading hyphen.
 (: string-numeric? (string --> boolean))
 (define (string-numeric? str)
-  (define len (string-length str))
-  (define period #f)
-  (if (or (zero? len)
-          (and (= len 1)
-               (char=? (string-ref str 0) #\.)))
+  (define (%string-numeric? s)
+    (let loop ((i 0))
+      (if (= i (string-length s))
+          #t
+          (if (char-numeric? (string-ref s i))
+              (loop (+ i 1))
+              #f))))
+  (define split (string-split str "."))
+  (if (or (< (length split) 1)
+          (> (length split) 2))
       #f
-      (let loop ((i 0))
-        (if (= i len)
-            #t
-            (if (not (char-numeric? (string-ref str i)))
-                (if period
-                    #f
-                    (if (char=? (string-ref str i) #\.)
-                        (begin (set! period #t)
-                               (loop (+ i 1)))
-                        #f))
-                (loop (+ i 1)))))))
+      (let* ((str (car split))
+             (lst (cons (if (char=? (string-ref str 0) #\-)
+                            (substring str 1 (string-length str))
+                            str)
+                        (cdr split))))
+        (not (memv #f (map %string-numeric? lst))))))
 
 ;; Get the first character of STR, or return false if STR is the empty string.
 (: first-char (string --> (or char false)))
